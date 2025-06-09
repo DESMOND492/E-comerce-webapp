@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>authentication</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: url('Destech1.jpg') center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            padding-top: 60px; /* Adjust based on the height of the menu */
+        }
+
+        .container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            transform-style: preserve-3d;
+            transition: all 0.8s;
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .back {
+            transform: rotateY(180deg);
+        }
+
+        h2 {
+            color: #4c0a0a;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.05);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: #2ecc71;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #27ae60;
+            transform: scale(1.05);
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .toggle-form span {
+            color: #2ecc71;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* Navigation Menu Styles */
+        nav {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #2ecc71;
+        }
+
+        .success-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3000;
+            width: 120px;
+            height: 120px;
+            background: #e8f5e9;
+            border-radius: 70%;
+            box-shadow: 0 8px 32px rgba(12, 233, 23, 0.855);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: popupScaleIn 0.4s;
+        }
+        .success-popup .checkmark {
+            font-size: 3em;
+            color: #43a047;
+            margin-bottom: 8px;
+        }
+        .success-popup .popup-text {
+            color:black;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        @keyframes popupScaleIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.7);}
+            to   { opacity: 1; transform: translate(-50%, -50%) scale(1);}
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #888;
+            user-select: none;
+        }
+        .toggle-password.active {
+            color: #2ecc71;
+        }
+
+        .forgot-section {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 5000;
+        }
+
+        .forgot-section .front {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .security-popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.45);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInBg 0.3s;
+        }
+        .security-popup.active {
+            display: flex;
+        }
+        .security-popup-content {
+            background: #fff;
+            border-radius: 18px;
+            padding: 32px 24px 24px 24px;
+            max-width: 350px;
+            width: 90%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            text-align: center;
+            animation: popupScaleIn 0.4s;
+        }
+        .security-popup-content h3 {
+            color: #1976d2;
+            margin-bottom: 18px;
+        }
+        .security-popup .close-btn {
+            margin-top: 18px;
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 7px 18px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .security-popup .close-btn:hover {
+            background: #c0392b;
+        }
+        @keyframes fadeInBg {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @keyframes popupScaleIn {
+            from { opacity: 0; transform: scale(0.7);}
+            to   { opacity: 1; transform: scale(1);}
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <ul>
+            <li><a href="e-mmorce.html">Home🏠</a></li>
+            <li><a href="sign in.html">Account💳</a></li>
+            <li><a href="contact us.html">Contact Us📞</a></li>
+            <li><a href="about us.html">About Us💻</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" id="container">
+        <!-- Sign Up Form -->
+        <div class="front">
+            <h2>Create Account</h2>
+            <form id="signupForm" onsubmit="return handleSignUp(event)">
+                <div class="input-group full-name-group">
+                    <input type="text" class="full-name-input" placeholder="Full Name" required>
+                </div>
+                <div class="input-group phone-number-group">
+                    <input type="tel" class="phone-number-input" placeholder="Phone Number" pattern="[0-9]{10}" required>
+                </div>
+                <div class="input-group password-group" style="position:relative;">
+                    <input type="password" class="password-input" id="signupPassword" placeholder="Password"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                        title="Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character."
+                        required>
+                    <span class="toggle-password" onclick="togglePassword('signupPassword', this)">👁️‍🗨️</span>
+                </div>
+                <div class="input-group password-group" style="position:relative;">
+                    <input type="password" class="password-input" id="signupConfirmPassword" placeholder="Confirm Password" required>
+                    <span class="toggle-password" onclick="togglePassword('signupConfirmPassword', this)">👁️‍🗨️</span>
+                </div>
+                <div class="input-group country-select-group">
+                    <select required>
+                        <option value="">Select Country</option>
+                        <option>USA</option>
+                        <option>Canada</option>
+                        <option>UK</option>
+                        <option>Australia</option>
+                        <option>Germany</option>
+                        <option>France</option>
+                        <option>India</option>
+                        <option>Japan</option>
+                        <option>China</option>
+                        <option>Brazil</option>
+                        <option>Mexico</option>
+                        <option>South Africa</option>
+                        <option>Russia</option>
+                        <option>Ghana</option>
+                        <option>Italy</option>
+                        <option>Nigeria</option>
+                        <option>Netherlands</option>
+                        <option>Sweden</option>
+                        <option>Norway</option>
+                        <option>Finland</option>
+                        <option>Denmark</option>
+                        <option>Belgium</option>
+                    </select>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="toggle-form">
+                Already have an account? <span onclick="toggleForms()">Sign In</span>
+            </div>
+        </div>
+
+        <!-- Sign In Form -->
+        <div class="back">
+            <h2>Welcome Back</h2>
+            <h2> LOG IN </h2>
+            <form id="signinForm" onsubmit="return handleSignIn(event)">
+               
+                <div class="input-group password-group" style="position:relative;">
+                    <input type="password" class="password-input" id="signinPassword" placeholder="Password"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                        title="Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character."
+                        required>
+                    <span class="toggle-password" onclick="togglePassword('signinPassword', this)">👁️‍🗨️</span>
+                </div>
+                <div class="input-group">
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" placeholder="Phone Number" required>
+                </div>
+               
+                <div class="input-group">
+                    <select required>
+                        <option value="">Select Country</option>
+                        <option>USA</option>
+                        <option>Canada</option>
+                        <option>UK</option>
+                        <option>Australia</option>
+                        <option>Germany</option>
+                        <option>France</option>
+                        <option>India</option>
+                        <option>Japan</option>
+                        <option>China</option>
+                        <option>Brazil</option>
+                        <option>Mexico</option>
+                        <option>South Africa</option>
+                        <option>Russia</option>
+                        <option>Ghana</option>
+                        <option>Italy</option>
+                        <option>Nigeria</option>
+                    </select>
+                </div>
+                <button type="submit">Sign In</button>
+            </form>
+            <div class="toggle-form">
+                Don't have an account? <span onclick="toggleForms()">Sign Up</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Section -->
+    <div id="forgotSection" class="forgot-section" style="display:none;">
+        <div class="front">
+            <h2>Forgot Password</h2>
+            <form id="forgotForm" onsubmit="return handleForgotPassword(event)">
+                <div class="input-group">
+                    <input type="text" id="forgotFullName" placeholder="Pet Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="forgotFullName" placeholder="favourite Food" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="forgotPhone" placeholder="Phone Number" required>
+                </div>
+                <button type="submit">Next</button>
+            </form>
+            <div class="toggle-form">
+                Remembered? <span onclick="showSignIn()">Sign In</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Question Popup -->
+    <div id="securityPopup" class="security-popup">
+        <div class="security-popup-content">
+            <h3>Security Check</h3>
+            <form id="securityQuestionsForm">
+                <div class="input-group">
+                    <input type="text" id="secQ1" placeholder="What is your mother's maiden name?" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="secQ2" placeholder="What was your first pet's name?" required>
+                </div>
+                <button type="submit" style="margin-top:10px;">Verify</button>
+            </form>
+            <button onclick="closeSecurityPopup()" class="close-btn">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Password Reset Section -->
+    <div id="recoverySection" class="forgot-section" style="display:none;">
+        <div class="front">
+            <h2>Reset Password</h2>
+            <form id="recoveryForm" onsubmit="return handleRecovery(event)">
+                <div class="input-group">
+                    <input type="password" id="newPassword" placeholder="New Password"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                        title="Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character."
+                        required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="confirmNewPassword" placeholder="Confirm New Password" required>
+                </div>
+                <button type="submit">Reset Password</button>
+            </form>
+            <div class="toggle-form">
+                Back to <span onclick="showSignIn()">Sign In</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="successPopup" class="success-popup">
+        <span class="checkmark">✅</span>
+        <span class="popup-text">Success!</span>
+    </div>
+
+    <script>
+        function toggleForms() {
+            document.getElementById('container').classList.toggle('flipped');
+        }
+
+        function showSuccessPopup(message = "Success!", isError = false) {
+            const popup = document.getElementById('successPopup');
+            popup.querySelector('.checkmark').textContent = isError ? '❌' : '✅';
+            popup.querySelector('.popup-text').textContent = message;
+            popup.style.background = isError ? '#ffebee' : '#e8f5e9';
+            popup.style.display = 'flex';
+            setTimeout(() => {
+                popup.style.display = 'none';
+                // Reset to default for next use
+                popup.querySelector('.checkmark').textContent = '✅';
+                popup.style.background = '#e8f5e9';
+            }, 1500);
+        }
+
+        // Toggle password visibility
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.add('active');
+            } else {
+                input.type = "password";
+                icon.classList.remove('active');
+            }
+        }
+
+        // Enhanced handleSignUp to check password confirmation and clear inputs
+        function handleSignUp(e) {
+            e.preventDefault();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            if (password !== confirmPassword) {
+                showSuccessPopup('Password do not match.', true);
+                return false;
+            }
+            // Simulate saving to database here...
+
+            // Clear all inputs in the form
+            const form = document.getElementById('signupForm');
+            form.reset();
+
+            showSuccessPopup('Sign Up Successful!');
+            // After popup, go to sign in page
+            setTimeout(() => {
+                toggleForms(); // Flip to sign in form
+            }, 1500);
+            return false;
+        }
+
+        // Enhanced handleSignIn to clear inputs after sign in
+        function handleSignIn(e) {
+            e.preventDefault();
+            // Simulate sign in logic here...
+
+            // Clear all inputs in the form
+            const form = document.getElementById('signinForm');
+            form.reset();
+
+            showSuccessPopup('Sign In Successful!');
+            return false;
+        }
+
+        // Show forgot password section
+        function showForgot() {
+            document.getElementById('container').style.display = 'none';
+            document.getElementById('forgotSection').style.display = 'block';
+            document.getElementById('recoverySection').style.display = 'none';
+        }
+        function showSignIn() {
+            document.getElementById('container').style.display = 'block';
+            document.getElementById('forgotSection').style.display = 'none';
+            document.getElementById('recoverySection').style.display = 'none';
+            closeSecurityPopup();
+        }
+        function showRecovery() {
+            document.getElementById('forgotSection').style.display = 'none';
+            document.getElementById('recoverySection').style.display = 'block';
+        }
+
+        // Show security popup after forgot form
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            document.getElementById('securityPopup').classList.add('active');
+            return false;
+        }
+        function closeSecurityPopup() {
+            document.getElementById('securityPopup').classList.remove('active');
+        }
+        // Handle security questions
+        document.getElementById('securityQuestionsForm').onsubmit = function(e) {
+            e.preventDefault();
+            const q1 = document.getElementById('secQ1').value.trim();
+            const q2 = document.getElementById('secQ2').value.trim();
+            if (q1 && q2) {
+                closeSecurityPopup();
+                showRecovery();
+            } else {
+                showSuccessPopup('Please answer both questions!');
+            }
+        };
+
+        // Handle password reset
+        function handleRecovery(e) {
+            e.preventDefault();
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+            if (newPassword !== confirmNewPassword) {
+                showSuccessPopup('Passwords do not match!');
+                return false;
+            }
+            showSuccessPopup('Password reset successful!');
+            setTimeout(showSignIn, 1500);
+            return false;
+        }
+
+        // Add "Forgot password?" link to Sign In form
+        document.addEventListener('DOMContentLoaded', function() {
+            const signInForm = document.getElementById('signinForm');
+            if (signInForm && !document.getElementById('forgotLink')) {
+                const forgotDiv = document.createElement('div');
+                forgotDiv.style.textAlign = 'center';
+                forgotDiv.style.marginTop = '10px';
+                forgotDiv.innerHTML = `<span id="forgotLink" style="color:#2ecc71;cursor:pointer;text-decoration:underline;">Forgot password?</span>`;
+                signInForm.appendChild(forgotDiv);
+                document.getElementById('forgotLink').onclick = showForgot;
+            }
+        });
+
+        // Add basic phone number validation
+        document.querySelectorAll('input[type="tel"]').forEach(input => {
+            input.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+    </script>
+</body>
+</html>

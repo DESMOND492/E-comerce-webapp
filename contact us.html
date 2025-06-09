@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: url('WhatsApp Image 2025-04-25 at 00.30.42_36722983.jpg') center/cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        nav {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff6b6b;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 100px; /* Add margin to push content below the menu */
+        }
+
+        .contact-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-info {
+            flex: 1;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-form {
+            flex: 1;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background: rgba(236, 242, 247, 0.737);
+            border-radius: 10px;
+            color: #0e0f0f;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        label {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        input:focus ~ label,
+        input:valid ~ label,
+        textarea:focus ~ label,
+        textarea:valid ~ label {
+            transform: translateY(-25px);
+            font-size: 12px;
+            color: #fff;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .info p {
+            color: #fff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            text-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Popup Feedback Styles */
+        .contact-popup-feedback {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 260px;
+            background: white;
+            color: #0f0f0fe7;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(18, 246, 29, 0.662);
+            padding: 36px 32px 28px 32px;
+            z-index: 4000;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            animation: popupScaleIn 0.04s;
+        }
+        .contact-popup-feedback .checkmark {
+            font-size: 2.2em;
+            color: #43a047;
+            margin-bottom: 10px;
+            display: block;
+        }
+        @keyframes popupScaleIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.7);}
+            to   { opacity: 1; transform: translate(-50%, -50%) scale(1);}
+        }
+
+        @media (max-width: 768px) {
+            .contact-box {
+                flex-direction: column;
+            }
+
+            .contact-info,
+            .contact-form {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="e-mmorce.html">Home🏠</a></li>
+            <li><a href="sign in.html">Account💳</a></li>
+            <li><a href="contact us.html">Contact Us📞</a></li>
+            <li><a href="about us.html">About Us💻</a></li>
+            <li><a href="cart.html">Cart🛒</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="contact-box">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>Get in Touch</h2>
+                <form id="contact-form">
+                    <div class="input-group">
+                        <input type="text" id="name" required>
+                        <label>Your Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" required>
+                        <label>Your Email</label>
+                    </div>
+                    <div class="input-group">
+                        <textarea id="message" required></textarea>
+                        <label>Your Message</label>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h2>Contact Info</h2>
+                <div class="info">
+                    <p><i class="fas fa-map-marker-alt"></i> Circle Amasaman Road, Ghana Telecom</p>
+                    <p><i class="fas fa-phone"></i> +233 (595853196) / (503371458)</p>
+                    <p><i class="fas fa-envelope"></i> contact @ Desmondquekuexhibit@gmail.com</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/share/1AX8a4zVkW/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@qhueku_brayan?_t=ZM-8wBhk7qkSVa&_r=1"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/qhueku_brayan?igsh=aWM5cmw5Y2pueHN0"><i class="fab fa-instagram"></i></a>
+                    <a href="https://gh.linkedin.com/in/desmond-mawunyo-totime-731b39323"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Feedback HTML -->
+    <div id="contactPopupFeedback" class="contact-popup-feedback">
+        <span class="checkmark">✅</span>
+        <span class="popup-text"></span>
+    </div>
+
+    <script>
+        // Show popup feedback with message
+        function showContactPopupFeedback(message) {
+            const popup = document.getElementById('contactPopupFeedback');
+            popup.querySelector('.popup-text').textContent = message;
+            popup.style.display = 'block';
+        }
+        // Hide popup feedback
+        function hideContactPopupFeedback() {
+            document.getElementById('contactPopupFeedback').style.display = 'none';
+        }
+
+        // Handle form submission with popup feedback
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Validate inputs
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+            let isValid = true;
+
+            [name, email, message].forEach(input => {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                    input.style.border = '2px solid #ff6b6b';
+                } else {
+                    input.style.border = 'none';
+                }
+            });
+
+            if (isValid) {
+                // First feedback
+                showContactPopupFeedback("YOUR MESSAGE HAS BEEN SENT SUCCESSFULLY. WE WOULD GIVE YOU A RESPOND SOON. ✅");
+                // Clear the form fields
+                this.reset();
+                // After 2 seconds, show the second feedback
+                setTimeout(() => {
+                    showContactPopupFeedback("Thank you for using DesTech TechMrket 🛒");
+                    // Hide after another 2 seconds
+                    setTimeout(hideContactPopupFeedback, 2000);
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
