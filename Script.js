@@ -30,7 +30,7 @@
                 price: "Gh₵5,000",
                 rating: 4.5,
                 reviews: 120,
-                discount: 100,
+                discount: 5,
                 paymentMethods: ["Credit Card", "PayPal"],
                 category: "pcps"
             },
@@ -41,7 +41,7 @@
                 price: "Gh₵2,000",
                 rating: 4.2,
                 reviews: 200,
-                discount: 300,
+                discount: 10,
                 paymentMethods: ["Credit Card", "Digital Wallet"],
                 category: "phones"
             },
@@ -52,7 +52,7 @@
                 price: "Gh₵6,000",
                 rating: 4.3,
                 reviews: 90,
-                discount: 120,
+                discount: 7,
                 paymentMethods: ["MOMO", "Credit Card"],
                 category: "tv"
             },
@@ -63,7 +63,7 @@
                 price: "Gh₵4,300",
                 rating: 5.0,
                 reviews: 85,
-                discount: 100,
+                discount: 12,
                 paymentMethods: ["MOMo","Credit Card"],
                 category: "phones"
             },
@@ -74,7 +74,7 @@
                 price: "Gh₵13,876",
                 rating: 4.7,
                 reviews: 87,
-                discount: 567,
+                discount: 6,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "server"
             },
@@ -97,7 +97,7 @@
                 price: "Gh₵11,678",
                 rating: 4.0,
                 reviews: 80,
-                discount: 200,
+                discount: 2,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "server"
             },
@@ -108,7 +108,7 @@
                 price: "Gh₵10,000",
                 rating: 5.0,
                 reviews: 95,
-                discount: 100,
+                discount: 10,
                 paymentMethods: ["Credit Card" ,"MOMO"],
                 category: "phones"
             },
@@ -119,7 +119,7 @@
                 price: "Gh₵3,000",
                 rating: 4.8,
                 reviews: 50,
-                discount: 20,
+                discount: 5,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "tv"
             },
@@ -130,7 +130,7 @@
                 price: "Gh₵5,500",
                 rating: 4.8,
                 reviews: 80,
-                discount: 370,
+                discount: 0,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "pcps"
             },
@@ -141,7 +141,7 @@
                 price: "Gh₵1,980",
                 rating: 4.8,
                 reviews: 30,
-                discount: 20,
+                discount: 2,
                 paymentMethods: ["Credit Card ","MOMO"],
                 category: "phones"
             },
@@ -152,7 +152,7 @@
                 price: "Gh₵3,000",
                 rating: 3.8,
                 reviews: 35,
-                discount: 332,
+                discount: 10,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "phones"
             },
@@ -163,7 +163,7 @@
                 price: "Gh₵12,000",
                 rating: 5.0,
                 reviews: 120,
-                discount: 200,
+                discount: 0,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "phones"
             },
@@ -174,7 +174,7 @@
                 price: "Gh₵3,800",
                 rating: 4.8,
                 reviews: 55,
-                discount: 20,
+                discount: 5,
                 paymentMethods: ["Credit Card"],
                 category: "phones"
             },
@@ -185,7 +185,7 @@
                 price: "Gh₵10,000",
                 rating: 4.3,
                 reviews: 89,
-                discount: 100,
+                discount: 8,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "server"
             },
@@ -207,7 +207,7 @@
                 price: "Gh₵5,000",
                 rating: 5.0,
                 reviews: 70,
-                discount: 200,
+                discount: 0,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "tv"
             },
@@ -218,7 +218,7 @@
                 price: "Gh₵1,700",
                 rating: 4.0,
                 reviews: 36,
-                discount: 70,
+                discount: 5,
                 paymentMethods: ["Credit Card"],
                 category: "phones"
             },
@@ -229,7 +229,7 @@
                 price: "Gh₵20,543",
                 rating: 4.5,
                 reviews: 91,
-                discount: 300,
+                discount: 7,
                 paymentMethods: ["Credit Card"],
                 category: "pcps"
             },
@@ -240,7 +240,7 @@
                 price: "Gh₵4,000",
                 rating: 4.2,
                 reviews: 31,
-                discount: 100,
+                discount: 5,
                 paymentMethods: ["Credit Card"],
                 category: "phones"
             },
@@ -251,7 +251,7 @@
                 price: "Gh₵8,543",
                 rating: 5.0,
                 reviews: 76,
-                discount: 436,
+                discount: 4,
                 paymentMethods: ["Credit Card/ MOMO"],
                 category: "pcps"
             },
@@ -262,7 +262,7 @@
                 price: "Gh₵200",
                 rating: 4.6,
                 reviews: 80,
-                discount: 10,
+                discount: 0,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "network"
             },
@@ -273,7 +273,7 @@
                 price: "Gh₵600",
                 rating: 5.0,
                 reviews: 80,
-                discount: 50,
+                discount: 2,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "watchpopds"
             },
@@ -284,7 +284,7 @@
                 price: "Gh₵2,650",
                 rating: 4.9,
                 reviews: 50,
-                discount: 200,
+                discount: 0,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "network"
             }, 
@@ -295,7 +295,7 @@
                 price: "Gh₵450",
                 rating: 4.8,
                 reviews: 80,
-                discount: 10.00,
+                discount: 3,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "watchpopds"
             },
@@ -306,7 +306,7 @@
                 price: "Gh₵500",
                 rating: 5.0,
                 reviews: 80,
-                discount: 20.00,
+                discount: 0,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "watchpods` z"
             },
@@ -328,7 +328,7 @@
                 price: "Gh₵350",
                 rating: 5.0,
                 reviews: 80,
-                discount: 100.00,
+                discount: 5,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "watchpopds"
             },
@@ -339,7 +339,7 @@
                 price: "Gh₵1,900",
                 rating: 5.0,
                 reviews: 120,
-                discount: 10.00,
+                discount: 1,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "network"
             },
@@ -350,7 +350,7 @@
                 price: "Gh₵350",
                 rating: 4.5,
                 reviews: 40,
-                discount: 10.00,
+                discount: 2,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "network"
             },
@@ -361,7 +361,7 @@
                 price: "Gh₵3,000",
                 rating: 5.0,
                 reviews: 80,
-                discount: 100.00,
+                discount: 5,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "network"
             },
@@ -383,7 +383,7 @@
                 price: "Gh₵200",
                 rating: 4.8,
                 reviews: 80,
-                discount: 10.00,
+                discount: 2,
                 paymentMethods: ["MOMO","Credit Card"],
                 category: "pcps"
             }
